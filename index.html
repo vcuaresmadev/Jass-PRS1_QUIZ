@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Quiz JASS - Sistema de Agua</title>
+  <style>
+    :root{
+      --bg:#e6f7ff; --card:#ffffff; --accent:#0277bd; --accent-2:#0288d1; --good:#2e7d32; --bad:#c62828;
+      --btn1:#0288d1; --btn2:#00b0ff; --btn3:#26c6da; --btn4:#26a69a;
+      --glass: rgba(255,255,255,0.6);
+      font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+    }
+    html,body{height:100%;margin:0;background:linear-gradient(180deg,var(--bg), #dff3ff 60%);color:#023047}
+    .wrap{min-height:100%;display:flex;align-items:center;justify-content:center;padding:2rem}
+    .card{width:960px;max-width:96%;background:linear-gradient(180deg, rgba(255,255,255,0.9), var(--card));box-shadow:0 10px 30px rgba(2,40,80,0.12);border-radius:16px;overflow:hidden;border:1px solid rgba(2,120,180,0.06)}
+    header{display:flex;align-items:center;gap:1rem;padding:1.2rem 1.6rem;background:linear-gradient(90deg,var(--accent),var(--accent-2));color:white}
+    .logo{width:64px;height:64px;border-radius:12px;background:radial-gradient(circle at 30% 30%, #b3e5fc, #0288d1);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:18px;color:white;box-shadow:0 6px 18px rgba(2,80,120,0.25)}
+    .title{font-size:18px;font-weight:700}
+    .subtitle{font-size:13px;opacity:0.95}
+    .main{display:grid;grid-template-columns:1fr 360px;gap:1rem;padding:1.6rem}
+    @media(max-width:900px){.main{grid-template-columns:1fr;}.sidebar{order:2}}
+    .quiz-area{padding:1rem}
+    .question-card{background:var(--glass);padding:1rem;border-radius:12px;border:1px solid rgba(2,120,180,0.06)}
+    .qtop{display:flex;justify-content:space-between;align-items:center;margin-bottom:0.6rem}
+    .qtext{font-size:20px;font-weight:700}
+    .progress{height:10px;background:rgba(2,40,80,0.06);border-radius:30px;overflow:hidden}
+    .progress > i{display:block;height:100%;background:linear-gradient(90deg,var(--btn1),var(--btn2));width:0%}
+    .answers{display:grid;grid-template-columns:1fr 1fr;gap:0.6rem;margin-top:1rem}
+    .ans{padding:12px;border-radius:10px;background:white;border:1px solid rgba(2,40,80,0.06);cursor:pointer;font-weight:600;box-shadow:0 6px 16px rgba(2,40,80,0.04);transition:transform .12s ease, box-shadow .12s}
+    .ans:hover{transform:translateY(-4px);box-shadow:0 10px 22px rgba(2,40,80,0.09)}
+    .a1{background:linear-gradient(180deg,var(--btn1),#039be5);color:white}
+    .a2{background:linear-gradient(180deg,var(--btn2),#00b8ff);color:white}
+    .a3{background:linear-gradient(180deg,var(--btn3),#26c6da);color:white}
+    .a4{background:linear-gradient(180deg,var(--btn4),#2bbbad);color:white}
+    .sidebar{padding:1rem;border-left:1px dashed rgba(2,120,180,0.06)}
+    .stat{background:white;padding:12px;border-radius:10px;margin-bottom:0.8rem;border:1px solid rgba(2,40,80,0.04)}
+    .timer{font-weight:800;font-size:22px;color:var(--accent)}
+    .score{font-weight:800;font-size:20px}
+    .btn{display:inline-block;padding:10px 14px;border-radius:10px;background:var(--accent);color:white;font-weight:700;border:none;cursor:pointer}
+    .small{font-size:13px;opacity:0.9}
+    footer{padding:1rem;text-align:center;background:linear-gradient(90deg, rgba(2,120,180,0.03), transparent)}
+    .droplets{position:absolute;right:18px;top:8px;opacity:0.12;font-size:40px}
+    .result{padding:1rem;text-align:center}
+    .correct{background:linear-gradient(90deg,#e8f5e9,#c8e6c9);border:1px solid rgba(46,125,50,0.12)}
+    .wrong{background:linear-gradient(90deg,#ffebee,#ffcdd2);border:1px solid rgba(198,40,40,0.12)}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <header>
+        <div class="logo">JASS</div>
+        <div>
+          <div class="title">Quiz Interactivo — Sistema JASS</div>
+          <div class="subtitle">Detecta conceptos clave del proyecto de gestión de agua</div>
+        </div>
+        <div style="margin-left:auto;text-align:right">
+          <div class="small">Proyecto: PRS1 - Ms-Distribution</div>
+          <div class="small">Presentadores: Victor y Maria</div>
+        </div>
+      </header>
+
+      <div class="main">
+        <div class="quiz-area">
+          <div class="question-card">
+            <div class="qtop">
+              <div>
+                <div class="qnum small">Pregunta <span id="qIndex">1</span>/<span id="qTotal">10</span></div>
+                <div class="qtext" id="qText">Cargando pregunta...</div>
+              </div>
+              <div style="text-align:right">
+                <div class="timer" id="timer">--</div>
+                <div class="small">Tiempo restante</div>
+              </div>
+            </div>
+            <div class="progress"><i id="progBar"></i></div>
+
+            <div class="answers" id="answers">
+              <!-- botones de respuesta -->
+            </div>
+          </div>
+
+          <div style="display:flex;gap:0.6rem;margin-top:10px;align-items:center">
+            <button class="btn" id="skipBtn">Saltar</button>
+            <div style="margin-left:auto" class="small">Haz click en la respuesta que consideres correcta.</div>
+          </div>
+
+        </div>
+
+        <aside class="sidebar">
+          <div class="stat">
+            <div class="small">Puntaje</div>
+            <div class="score" id="score">0</div>
+          </div>
+          <div class="stat">
+            <div class="small">Correctas</div>
+            <div id="correctCount">0</div>
+          </div>
+          <div class="stat">
+            <div class="small">Incorrectas</div>
+            <div id="wrongCount">0</div>
+          </div>
+          <div class="stat">
+            <div class="small">Tiempo por pregunta</div>
+            <div>15 segundos</div>
+          </div>
+
+          <div style="margin-top:12px">
+            <button class="btn" id="restart">Reiniciar Quiz</button>
+          </div>
+        </aside>
+      </div>
+
+      <footer>
+        <small>Diseño inspirado en el Sistema JASS — Gestión de agua para comunidades</small>
+      </footer>
+    </div>
+  </div>
+
+  <script>
+    // Preguntas tomadas y adaptadas del PDF JASS-Prs1_Ms-Distribution
+    const questions = [
+      {
+        q: '¿Cuál es una razón principal por la que el proyecto JASS importa?',
+        a: ['Mejora el diseño de instalaciones públicas','Facilita la gestión del servicio de agua en comunidades','Reduce el número de usuarios','Aumenta la burocracia administrativa'],
+        correct: 1
+      },
+      {
+        q: 'Según la presentación, ¿qué problema pasaba antes en la JASS?',
+        a: ['Los reportes se generaban demasiado rápido','Se perdían datos y los reportes demoraban mucho','Había demasiada digitalización','Los usuarios no pagaban nunca'],
+        correct: 1
+      },
+      {
+        q: '¿Cómo define el PDF al "Sistema JASS"?',
+        a: ['Un tablero para redes sociales','Una aplicación web que digitaliza la administración del agua','Un hardware para medir caudal','Un sistema para vender agua embotellada'],
+        correct: 1
+      },
+      {
+        q: '¿Cuál de estas funciones aparece en la presentación?',
+        a: ['Registro digital de usuarios','Creación de videojuegos para la comunidad','Transmisión en vivo 24/7','Producción de agua potable'],
+        correct: 0
+      },
+      {
+        q: '¿Qué rol forma parte de la estructura del sistema JASS según el PDF?',
+        a: ['Cliente de diseño','Super-admin','Moderador externo','Proveedor de agua'],
+        correct: 1
+      },
+      {
+        q: '¿Qué ventaja directa menciona el documento sobre digitalizar registros?',
+        a: ['Permite cálculos manuales más largos','Reduce errores y entrega reportes instantáneos','Aumenta el uso de papel','Hace más difícil el acceso a historiales'],
+        correct: 1
+      },
+      {
+        q: '¿Qué describe el despliegue del sistema JASS en la presentación?',
+        a: ['Rápido y seguro','Lento y costoso','Solo para grandes ciudades','Exclusivo para administradores externos'],
+        correct: 0
+      },
+      {
+        q: '¿Cuál es un problema de registrar todo en cuadernos?',
+        a: ['Los cuadernos son caros','Se pierden datos y aparecen errores','Mejoran la velocidad de consulta','Permiten backups automáticos'],
+        correct: 1
+      },
+      {
+        q: '¿Qué permite el sistema respecto a pagos, según el PDF?',
+        a: ['Hacer cálculos y emitir recibos automáticamente','Eliminar la necesidad de pagar','Guardar pagos solo en papel','Cambiar monedas automáticamente'],
+        correct: 0
+      },
+      {
+        q: '¿Cuál es el lema o frase clave usada en la presentación?',
+        a: ['Una sola plataforma puede mejorar la organización del agua para toda una comunidad.','La tecnología complica la vida rural.','Más papel es mejor para los registros.','El agua se gestiona sola si se espera bastante.'],
+        correct: 0
+      }
+    ];
+
+    const qTotal = questions.length;
+    let index = 0, score = 0, correctCount = 0, wrongCount = 0;
+    const timePerQ = 15; // segundos
+    let timerInterval, timeLeft;
+
+    const qIndexEl = document.getElementById('qIndex');
+    const qTotalEl = document.getElementById('qTotal');
+    const qText = document.getElementById('qText');
+    const answersEl = document.getElementById('answers');
+    const timerEl = document.getElementById('timer');
+    const progBar = document.getElementById('progBar');
+    const scoreEl = document.getElementById('score');
+    const correctEl = document.getElementById('correctCount');
+    const wrongEl = document.getElementById('wrongCount');
+
+    qTotalEl.textContent = qTotal;
+
+    function shuffle(a){for(let i=a.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+
+    function startQuestion(){
+      clearInterval(timerInterval);
+      const q = questions[index];
+      qIndexEl.textContent = index+1;
+      qText.textContent = q.q;
+      answersEl.innerHTML = '';
+      // create answers in shuffled order but keep track of correct index
+      const ansOrder = q.a.map((t,i)=>({t,i}));
+      shuffle(ansOrder);
+      ansOrder.forEach((item, idx)=>{
+        const btn = document.createElement('button');
+        btn.className = 'ans a'+(idx+1);
+        btn.innerHTML = String.fromCharCode(65+idx)+'. '+item.t;
+        btn.dataset.origIndex = item.i; // original index maps to correctness
+        btn.addEventListener('click', onAnswer);
+        answersEl.appendChild(btn);
+      });
+
+      // progress
+      progBar.style.width = ((index)/qTotal*100)+'%';
+
+      // timer
+      timeLeft = timePerQ;
+      timerEl.textContent = timeLeft+'s';
+      timerInterval = setInterval(()=>{
+        timeLeft--; if(timeLeft<=0){clearInterval(timerInterval); markWrong(null,true)}; timerEl.textContent = timeLeft+'s'
+      },1000)
+    }
+
+    function onAnswer(e){
+      const btn = e.currentTarget; const orig = Number(btn.dataset.origIndex);
+      checkAnswer(orig, btn);
+    }
+
+    function checkAnswer(origIndex, btnClicked){
+      clearInterval(timerInterval);
+      const q = questions[index];
+      const correctIndex = q.correct;
+      // find which displayed button has origIndex === correctIndex
+      const buttons = Array.from(answersEl.querySelectorAll('button'));
+      buttons.forEach(b=>{
+        if(Number(b.dataset.origIndex) === correctIndex){ b.classList.add('correct'); b.style.borderColor='rgba(46,125,50,0.12)'; }
+        if(Number(b.dataset.origIndex) !== correctIndex){ b.classList.add('wrong'); }
+        b.disabled = true;
+      })
+
+      if(origIndex === correctIndex){
+        // rewarded
+        const points = 100 + timeLeft*5; score += points; correctCount++;
+      } else { wrongCount++; }
+      updateStats();
+      // wait then next
+      setTimeout(()=>{ nextQuestion(); },1200);
+    }
+
+    function markWrong(btn, timedOut=false){
+      const q = questions[index];
+      const buttons = Array.from(answersEl.querySelectorAll('button'));
+      buttons.forEach(b=>{
+        if(Number(b.dataset.origIndex) === q.correct){ b.classList.add('correct'); }
+        else{ b.classList.add('wrong'); }
+        b.disabled = true;
+      })
+      if(timedOut) wrongCount++;
+      updateStats();
+      setTimeout(()=>{ nextQuestion(); },1200);
+    }
+
+    function nextQuestion(){
+      index++;
+      if(index>=qTotal){ finishQuiz(); return; }
+      startQuestion();
+    }
+
+    function updateStats(){
+      scoreEl.textContent = score;
+      correctEl.textContent = correctCount;
+      wrongEl.textContent = wrongCount;
+      progBar.style.width = ((index)/qTotal*100)+'%';
+    }
+
+    document.getElementById('skipBtn').addEventListener('click', ()=>{ clearInterval(timerInterval); wrongCount++; updateStats(); setTimeout(()=>{ nextQuestion(); },300); })
+    document.getElementById('restart').addEventListener('click', ()=>{ index=0; score=0; correctCount=0; wrongCount=0; updateStats(); startQuestion(); })
+
+    function finishQuiz(){
+      // show results
+      const wrap = document.querySelector('.card');
+      wrap.innerHTML = `
+        <header style="display:flex;align-items:center;gap:1rem;padding:1.2rem 1.6rem;background:linear-gradient(90deg,var(--accent),var(--accent-2));color:white">
+          <div class="logo">JASS</div>
+          <div>
+            <div class="title">Resultados — Quiz JASS</div>
+            <div class="subtitle">¡Buen trabajo!</div>
+          </div>
+        </header>
+        <div style="padding:2rem;text-align:center">
+          <div style="font-size:28px;font-weight:800;color:var(--accent)">Puntaje: ${score}</div>
+          <div style="margin-top:12px;font-size:18px">Correctas: ${correctCount} • Incorrectas: ${wrongCount}</div>
+          <div style="margin-top:18px;max-width:700px;margin-left:auto;margin-right:auto">
+            <div style="background:var(--card);padding:14px;border-radius:12px;border:1px solid rgba(2,40,80,0.06)">
+              <p class="small">Revisa las respuestas correctas y repasa la presentación para mejorar.</p>
+            </div>
+          </div>
+          <div style="margin-top:18px">
+            <button onclick="location.reload()" class="btn">Jugar otra vez</button>
+          </div>
+        </div>
+      `;
+    }
+
+    // shuffle questions order to keep it dinámico
+    shuffle(questions);
+    // but keep correct indices relative to answers - already handled via origIndex
+
+    startQuestion();
+  </script>
+</body>
+</html>
