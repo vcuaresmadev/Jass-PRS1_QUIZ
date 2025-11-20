@@ -8,46 +8,133 @@
     :root{
       --bg:#e6f7ff; --card:#ffffff; --accent:#0277bd; --accent-2:#0288d1; --good:#2e7d32; --bad:#c62828;
       --btn1:#0288d1; --btn2:#00b0ff; --btn3:#26c6da; --btn4:#26a69a;
-      --glass: rgba(255,255,255,0.6);
+      --glass: rgba(255,255,255,0.9);
       font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
     }
-    html,body{height:100%;margin:0;background:linear-gradient(180deg,var(--bg), #dff3ff 60%);color:#023047}
+    html,body{height:100%;margin:0;background:linear-gradient(180deg,var(--bg), #dff3ff 60%);color:#023047; font-size: 18px;}
     .wrap{min-height:100%;display:flex;align-items:center;justify-content:center;padding:2rem}
-    .card{width:960px;max-width:96%;background:linear-gradient(180deg, rgba(255,255,255,0.9), var(--card));box-shadow:0 10px 30px rgba(2,40,80,0.12);border-radius:16px;overflow:hidden;border:1px solid rgba(2,120,180,0.06)}
+    .card{width:960px;max-width:96%;background:linear-gradient(180deg, rgba(255,255,255,0.95), var(--card));box-shadow:0 10px 30px rgba(2,40,80,0.12);border-radius:16px;overflow:hidden;border:1px solid rgba(2,120,180,0.1)}
     header{display:flex;align-items:center;gap:1rem;padding:1.2rem 1.6rem;background:linear-gradient(90deg,var(--accent),var(--accent-2));color:white}
     .logo{width:64px;height:64px;border-radius:12px;background:radial-gradient(circle at 30% 30%, #b3e5fc, #0288d1);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:18px;color:white;box-shadow:0 6px 18px rgba(2,80,120,0.25)}
-    .title{font-size:18px;font-weight:700}
-    .subtitle{font-size:13px;opacity:0.95}
+    .title{font-size:22px;font-weight:700}
+    .subtitle{font-size:16px;opacity:0.95}
     .main{display:grid;grid-template-columns:1fr 360px;gap:1rem;padding:1.6rem}
     @media(max-width:900px){.main{grid-template-columns:1fr;}.sidebar{order:2}}
     .quiz-area{padding:1rem}
-    .question-card{background:var(--glass);padding:1rem;border-radius:12px;border:1px solid rgba(2,120,180,0.06)}
-    .qtop{display:flex;justify-content:space-between;align-items:center;margin-bottom:0.6rem}
-    .qtext{font-size:20px;font-weight:700}
-    .progress{height:10px;background:rgba(2,40,80,0.06);border-radius:30px;overflow:hidden}
+    .question-card{background:var(--glass);padding:1.5rem;border-radius:12px;border:1px solid rgba(2,120,180,0.1)}
+    .qtop{display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem}
+    .qtext{font-size:24px;font-weight:700; line-height: 1.4;}
+    .progress{height:12px;background:rgba(2,40,80,0.06);border-radius:30px;overflow:hidden}
     .progress > i{display:block;height:100%;background:linear-gradient(90deg,var(--btn1),var(--btn2));width:0%}
-    .answers{display:grid;grid-template-columns:1fr 1fr;gap:0.6rem;margin-top:1rem}
-    .ans{padding:12px;border-radius:10px;background:white;border:1px solid rgba(2,40,80,0.06);cursor:pointer;font-weight:600;box-shadow:0 6px 16px rgba(2,40,80,0.04);transition:transform .12s ease, box-shadow .12s}
+    .answers{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin-top:1.5rem}
+    .ans{padding:16px;border-radius:10px;background:white;border:1px solid rgba(2,40,80,0.06);cursor:pointer;font-weight:600;box-shadow:0 6px 16px rgba(2,40,80,0.04);transition:transform .12s ease, box-shadow .12s; font-size: 18px;}
     .ans:hover{transform:translateY(-4px);box-shadow:0 10px 22px rgba(2,40,80,0.09)}
     .a1{background:linear-gradient(180deg,var(--btn1),#039be5);color:white}
     .a2{background:linear-gradient(180deg,var(--btn2),#00b8ff);color:white}
     .a3{background:linear-gradient(180deg,var(--btn3),#26c6da);color:white}
     .a4{background:linear-gradient(180deg,var(--btn4),#2bbbad);color:white}
-    .sidebar{padding:1rem;border-left:1px dashed rgba(2,120,180,0.06)}
-    .stat{background:white;padding:12px;border-radius:10px;margin-bottom:0.8rem;border:1px solid rgba(2,40,80,0.04)}
-    .timer{font-weight:800;font-size:22px;color:var(--accent)}
-    .score{font-weight:800;font-size:20px}
-    .btn{display:inline-block;padding:10px 14px;border-radius:10px;background:var(--accent);color:white;font-weight:700;border:none;cursor:pointer}
-    .small{font-size:13px;opacity:0.9}
-    footer{padding:1rem;text-align:center;background:linear-gradient(90deg, rgba(2,120,180,0.03), transparent)}
+    .sidebar{padding:1rem;border-left:1px dashed rgba(2,120,180,0.1)}
+    .stat{background:white;padding:16px;border-radius:10px;margin-bottom:1rem;border:1px solid rgba(2,40,80,0.06); font-size: 18px;}
+    .timer{font-weight:800;font-size:26px;color:var(--accent)}
+    .score{font-weight:800;font-size:24px}
+    .btn{display:inline-block;padding:12px 18px;border-radius:10px;background:var(--accent);color:white;font-weight:700;border:none;cursor:pointer; font-size: 18px;}
+    .small{font-size:15px;opacity:0.9}
+    footer{padding:1rem;text-align:center;background:linear-gradient(90deg, rgba(2,120,180,0.03), transparent); font-size: 16px;}
     .droplets{position:absolute;right:18px;top:8px;opacity:0.12;font-size:40px}
     .result{padding:1rem;text-align:center}
-    .correct{background:linear-gradient(90deg,#e8f5e9,#c8e6c9);border:1px solid rgba(46,125,50,0.12)}
-    .wrong{background:linear-gradient(90deg,#ffebee,#ffcdd2);border:1px solid rgba(198,40,40,0.12)}
+    .correct{background:linear-gradient(90deg,#e8f5e9,#c8e6c9);border:1px solid rgba(46,125,50,0.3)}
+    .wrong{background:linear-gradient(90deg,#ffebee,#ffcdd2);border:1px solid rgba(198,40,40,0.3)}
+    
+    /* Alertas personalizadas */
+    .alert {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      padding: 40px;
+      border-radius: 20px;
+      font-size: 28px;
+      font-weight: bold;
+      text-align: center;
+      z-index: 1000;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+      min-width: 400px;
+      max-width: 85%;
+      animation: fadeIn 0.5s, fadeOut 0.5s 6.5s;
+    }
+    
+    .alert-success {
+      background: linear-gradient(135deg, #4CAF50, #2E7D32);
+      color: white;
+      border: 3px solid #1B5E20;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+    
+    .alert-error {
+      background: linear-gradient(135deg, #F44336, #C62828);
+      color: white;
+      border: 3px solid #B71C1C;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+    
+    .correct-answer {
+      margin-top: 20px;
+      font-size: 22px;
+      font-weight: bold;
+      padding: 20px;
+      background: rgba(255,255,255,0.25);
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.3);
+    }
+    
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translate(-50%, -50%) scale(0.8);}
+      to {opacity: 1; transform: translate(-50%, -50%) scale(1);}
+    }
+    
+    @keyframes fadeOut {
+      from {opacity: 1; transform: translate(-50%, -50%) scale(1);}
+      to {opacity: 0; transform: translate(-50%, -50%) scale(0.8);}
+    }
   </style>
 </head>
 <body>
-  <div class="wrap">
+  <!-- Pantalla de inicio -->
+  <div class="wrap" id="welcomeScreen">
+    <div class="card" style="text-align: center; padding: 2rem;">
+      <header style="justify-content: center; margin-bottom: 2rem;">
+        <div class="logo">JASS</div>
+        <div>
+          <div class="title">Quiz Interactivo — Sistema JASS</div>
+          <div class="subtitle">Detecta conceptos clave del proyecto de gestión de agua</div>
+        </div>
+      </header>
+        
+      <div style="margin: 2rem 0;">
+        <h2 style="color: var(--accent); font-size: 28px;">¡Bienvenido al Quiz JASS!</h2>
+        <p style="font-size: 20px; margin: 1.5rem 0; line-height: 1.6;">
+          Pon a prueba tus conocimientos sobre el sistema de gestión de agua JASS.<br>
+          Responde 10 preguntas de diferentes niveles de dificultad.
+        </p>
+        <div style="background: var(--glass); padding: 1.5rem; border-radius: 15px; margin: 1.5rem auto; max-width: 80%; border: 1px solid rgba(2,120,180,0.1);">
+          <p style="font-size: 18px; margin: 0.5rem 0;"><strong>⏱️ Tiempo por pregunta:</strong> 60 segundos</p>
+          <p style="font-size: 18px; margin: 0.5rem 0;"><strong>🏆 Sistema de puntaje:</strong> Más puntos por responder rápido</p>
+          <p style="font-size: 18px; margin: 0.5rem 0;"><strong>📊 Niveles:</strong> Fácil, Medio y Difícil</p>
+        </div>
+      </div>
+        
+      <button class="btn" id="startBtn" style="font-size: 22px; padding: 15px 30px; margin: 1rem 0;">
+        🚀 Iniciar Quiz
+      </button>
+        
+      <footer style="margin-top: 2rem;">
+        <small>Proyecto: PRS1 - Ms-Distribution<br>Presentadores: Victor y Maria</small>
+      </footer>
+    </div>
+  </div>
+    
+  <!-- Pantalla del quiz (oculta inicialmente) -->
+  <div class="wrap" id="quizScreen" style="display: none;">
     <div class="card">
       <header>
         <div class="logo">JASS</div>
@@ -119,59 +206,117 @@
   </div>
 
   <script>
-    // Preguntas tomadas y adaptadas del PDF JASS-Prs1_Ms-Distribution
-    const questions = [
+    // Preguntas tomadas y adaptadas de las Diapositivas Presentadas - JASS-Prs1_Ms-Distribution
+    // Banco de preguntas ampliado con diferentes niveles de dificultad
+    const allQuestions = [
+      // Nivel fácil
       {
         q: '¿Cuál es una razón principal por la que el proyecto JASS importa?',
         a: ['Mejora el diseño de instalaciones públicas','Facilita la gestión del servicio de agua en comunidades','Reduce el número de usuarios','Aumenta la burocracia administrativa'],
-        correct: 1
+        correct: 1,
+        difficulty: 'easy'
       },
       {
-        q: 'Según la presentación, ¿qué problema pasaba antes en la JASS?',
+        q: 'Según las diapositivas presentadas, ¿qué problema pasaba antes en la JASS?',
         a: ['Los reportes se generaban demasiado rápido','Se perdían datos y los reportes demoraban mucho','Había demasiada digitalización','Los usuarios no pagaban nunca'],
-        correct: 1
+        correct: 1,
+        difficulty: 'easy'
       },
       {
-        q: '¿Cómo define el PDF al "Sistema JASS"?',
+        q: '¿Cómo definen las diapositivas presentadas al "Sistema JASS"?',
         a: ['Un tablero para redes sociales','Una aplicación web que digitaliza la administración del agua','Un hardware para medir caudal','Un sistema para vender agua embotellada'],
-        correct: 1
+        correct: 1,
+        difficulty: 'easy'
       },
       {
-        q: '¿Cuál de estas funciones aparece en la presentación?',
+        q: '¿Cuál de estas funciones aparece en las diapositivas presentadas?',
         a: ['Registro digital de usuarios','Creación de videojuegos para la comunidad','Transmisión en vivo 24/7','Producción de agua potable'],
-        correct: 0
+        correct: 0,
+        difficulty: 'easy'
       },
       {
-        q: '¿Qué rol forma parte de la estructura del sistema JASS según el PDF?',
+        q: '¿Qué rol forma parte de la estructura del sistema JASS según las diapositivas presentadas?',
         a: ['Cliente de diseño','Super-admin','Moderador externo','Proveedor de agua'],
-        correct: 1
+        correct: 1,
+        difficulty: 'easy'
       },
+      
+      // Nivel medio
       {
-        q: '¿Qué ventaja directa menciona el documento sobre digitalizar registros?',
+        q: '¿Qué ventaja directa mencionan las diapositivas sobre digitalizar registros?',
         a: ['Permite cálculos manuales más largos','Reduce errores y entrega reportes instantáneos','Aumenta el uso de papel','Hace más difícil el acceso a historiales'],
-        correct: 1
+        correct: 1,
+        difficulty: 'medium'
       },
       {
-        q: '¿Qué describe el despliegue del sistema JASS en la presentación?',
+        q: '¿Qué describe el despliegue del sistema JASS en las diapositivas presentadas?',
         a: ['Rápido y seguro','Lento y costoso','Solo para grandes ciudades','Exclusivo para administradores externos'],
-        correct: 0
+        correct: 0,
+        difficulty: 'medium'
       },
       {
-        q: '¿Cuál es un problema de registrar todo en cuadernos?',
+        q: '¿Cuál es un problema de registrar todo en cuadernos según las diapositivas?',
         a: ['Los cuadernos son caros','Se pierden datos y aparecen errores','Mejoran la velocidad de consulta','Permiten backups automáticos'],
-        correct: 1
+        correct: 1,
+        difficulty: 'medium'
       },
       {
-        q: '¿Qué permite el sistema respecto a pagos, según el PDF?',
+        q: '¿Qué permite el sistema respecto a pagos, según las diapositivas presentadas?',
         a: ['Hacer cálculos y emitir recibos automáticamente','Eliminar la necesidad de pagar','Guardar pagos solo en papel','Cambiar monedas automáticamente'],
-        correct: 0
+        correct: 0,
+        difficulty: 'medium'
+      },
+      
+      // Nivel difícil
+      {
+        q: '¿Cuál es el lema o frase clave usada en las diapositivas presentadas?',
+        a: ['Una sola plataforma puede mejorar la organización del agua para toda una comunidad.','La tecnología complica la vida rural.','Más papel es mejor para los registros.','El agua se gestiona sola si se espera bastante.'],
+        correct: 0,
+        difficulty: 'hard'
       },
       {
-        q: '¿Cuál es el lema o frase clave usada en la presentación?',
-        a: ['Una sola plataforma puede mejorar la organización del agua para toda una comunidad.','La tecnología complica la vida rural.','Más papel es mejor para los registros.','El agua se gestiona sola si se espera bastante.'],
-        correct: 0
+        q: '¿Qué beneficio adicional brinda el sistema JASS además de la gestión de pagos?',
+        a: ['Genera informes estadísticos automatizados','Vende equipos de medición','Ofrece servicios de mantenimiento','Realiza excavaciones hidráulicas'],
+        correct: 0,
+        difficulty: 'hard'
+      },
+      {
+        q: '¿Qué tipo de usuarios puede acceder al panel de administración del sistema?',
+        a: ['Solo el super-administrador','Solo usuarios técnicos','Solo usuarios con rol específico','Cualquier usuario registrado'],
+        correct: 2,
+        difficulty: 'hard'
+      },
+      {
+        q: '¿Cuál es la principal ventaja del sistema JASS sobre los métodos tradicionales de registro?',
+        a: ['Menor costo de implementación','Acceso a datos en tiempo real','Menor cantidad de personal','Uso de papel reciclado'],
+        correct: 1,
+        difficulty: 'hard'
       }
     ];
+    
+    // Función para seleccionar preguntas aleatorias con distribución equilibrada
+    function selectRandomQuestions() {
+      // Mezclar todas las preguntas
+      const shuffled = [...allQuestions].sort(() => 0.5 - Math.random());
+      
+      // Seleccionar preguntas de cada nivel
+      const easy = shuffled.filter(q => q.difficulty === 'easy');
+      const medium = shuffled.filter(q => q.difficulty === 'medium');
+      const hard = shuffled.filter(q => q.difficulty === 'hard');
+      
+      // Seleccionar 4 fáciles, 3 medianas y 3 difíciles
+      const selected = [
+        ...easy.slice(0, 4),
+        ...medium.slice(0, 3),
+        ...hard.slice(0, 3)
+      ];
+      
+      // Mezclar el conjunto final
+      return selected.sort(() => 0.5 - Math.random());
+    }
+    
+    // Seleccionar preguntas para este quiz
+    const questions = selectRandomQuestions();
 
     const qTotal = questions.length;
     let index = 0, score = 0, correctCount = 0, wrongCount = 0;
@@ -239,12 +384,22 @@
       })
 
       if(origIndex === correctIndex){
+        // Mostrar alerta de éxito
+        showAlert('🎉 ¡Excelente! 🎉<br>Has comprendido perfectamente<br>🏆 ¡Premio desbloqueado! 🏆', 'success');
         // rewarded
         const points = 100 + timeLeft*5; score += points; correctCount++;
-      } else { wrongCount++; }
+      } else { 
+        wrongCount++; 
+        // Mostrar alerta de error con la respuesta correcta
+        const correctAnswer = q.a[correctIndex];
+        showAlert(`📚 ¡Sigue estudiando!<br>Puedes mejorar aún más<br><div class="correct-answer">✅ Respuesta correcta: ${correctAnswer}</div>`, 'error');
+      }
       updateStats();
       // wait then next
-      setTimeout(()=>{ nextQuestion(); },1200);
+      setTimeout(()=>{ 
+        hideAlert();
+        nextQuestion(); 
+      },7000);
     }
 
     function markWrong(btn, timedOut=false){
@@ -255,9 +410,17 @@
         else{ b.classList.add('wrong'); }
         b.disabled = true;
       })
-      if(timedOut) wrongCount++;
+      if(timedOut) {
+        wrongCount++;
+        // Mostrar alerta de tiempo agotado con la respuesta correcta
+        const correctAnswer = q.a[q.correct];
+        showAlert(`⏰ ¡Tiempo agotado!<br>No te rindas, inténtalo de nuevo<br><div class="correct-answer">✅ Respuesta correcta: ${correctAnswer}</div>`, 'error');
+      }
       updateStats();
-      setTimeout(()=>{ nextQuestion(); },1200);
+      setTimeout(()=>{ 
+        hideAlert();
+        nextQuestion(); 
+      },7000);
     }
 
     function nextQuestion(){
@@ -302,11 +465,40 @@
       `;
     }
 
-    // shuffle questions order to keep it dinámico
-    shuffle(questions);
-    // but keep correct indices relative to answers - already handled via origIndex
-
-    startQuestion();
+    // Funciones para mostrar y ocultar alertas personalizadas
+    function showAlert(message, type) {
+      // Eliminar cualquier alerta existente
+      hideAlert();
+      
+      // Crear elemento de alerta
+      const alert = document.createElement('div');
+      alert.className = `alert alert-${type}`;
+      alert.innerHTML = message;
+      
+      // Añadir al cuerpo del documento
+      document.body.appendChild(alert);
+      
+      // Guardar referencia para poder eliminarla después
+      window.currentAlert = alert;
+    }
+    
+    function hideAlert() {
+      if (window.currentAlert) {
+        window.currentAlert.remove();
+        window.currentAlert = null;
+      }
+    }
+    
+    // Mostrar la pantalla de inicio
+    document.getElementById('welcomeScreen').style.display = 'flex';
+    document.getElementById('quizScreen').style.display = 'none';
+    
+    // Evento para el botón de inicio
+    document.getElementById('startBtn').addEventListener('click', function() {
+      document.getElementById('welcomeScreen').style.display = 'none';
+      document.getElementById('quizScreen').style.display = 'flex';
+      startQuestion();
+    });
   </script>
 </body>
 </html>
